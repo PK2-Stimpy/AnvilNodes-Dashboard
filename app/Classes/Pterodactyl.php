@@ -87,6 +87,26 @@ class Pterodactyl
         return $response->json()['data'];
     }
 
+    public static function getNode($id) {
+        try {
+            $response = self::client()->get('/application/nodes/' . $id);
+        } catch(Exception $e) {
+            throw self::getException($e->getMessage());
+        }
+        if($response->failed()) throw self::getException("Failed to get node id " . $id . " - " . $response->status());
+        return $response->json()['attributes'];
+    }
+
+    public static function getServers() {
+        try {
+            $response = self::client()->get('/application/servers');
+        } catch (Exception $e) {
+            throw self::getException($e->getMessage());
+        }
+        if($response->failed()) throw self::getException("Failed to get list of servers - ", $response->status());
+        return $response->json()['data'];
+    }
+
     /**
      * @return null
      * @throws Exception
