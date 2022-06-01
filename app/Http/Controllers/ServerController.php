@@ -23,27 +23,6 @@ function console_log($output) {
 	file_put_contents('n.log', $output . "\r\n", FILE_APPEND);
 }
 
-function obtainCreditUsage($user) {
-    console_log('');
-    console_log('OBTAIN CREDIT USAGE');
-    $servers = $user->servers;
-
-    console_log('  Server Count: ' . $servers->count());
-
-    $usage = 0;
-    $servers->chunk(10, function ($servers) {
-        foreach($servers as $server) {
-            $product = $server->product;
-            console_log('  SV(' . $server->name . ') - ' . $server->product()->price);
-            $usage += $server->product()->price;
-        }
-    });
-
-    console_log($usage);
-    console_log('');
-    return $usage;
-}
-
 class ServerController extends Controller
 {
     /** Display a listing of the resource. */

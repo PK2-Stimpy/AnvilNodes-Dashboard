@@ -242,6 +242,23 @@ class User extends Authenticatable implements MustVerifyEmail
         return number_format($usage, 2, '.', '');
     }
 
+    public function intCreditUsage() {
+        console_log('');
+        console_log('OBTAIN CREDIT USAGE');
+        console_log('  Server Count: ' . $this->servers->count());
+    
+        $usage = 0;
+        foreach($this->servers as $server) {
+              $product = $server->product;
+              console_log('  SV(' . $server->name . ') - ' . $server->product()->price);
+               $usage += $server->product()->price;
+        }
+    
+        console_log($usage);
+        console_log('');
+        return $usage;
+    }
+
     /**
      * @return array|string|string[]
      */
