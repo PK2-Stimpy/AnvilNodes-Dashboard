@@ -218,10 +218,10 @@
                                         </div>
                                     </div>
                                     <button type="submit" x-model="selectedProduct" name="product"
-                                        :disabled="product.minimum_credits > user.credits"
-                                        :class="product.minimum_credits > user.credits ? 'disabled' : ''"
+                                        :disabled="product.minimum_credits > user.credits - user.creditUsage"
+                                        :class="product.minimum_credits > user.credits - user.creditUsage ? 'disabled' : ''"
                                         class="btn btn-primary btn-block mt-2" @click="setProduct(product.id)"
-                                        x-text=" product.minimum_credits > user.credits ? '{{ __('Not enough') }} {{ CREDITS_DISPLAY_NAME }}!' : '{{ __('Create server') }}'">
+                                        x-text=" product.minimum_credits > user.credits - user.creditUsage ? '{{ __('Not enough') }} {{ CREDITS_DISPLAY_NAME }}!' : '{{ __('Create server') }}'">
                                     </button>
                                 </div>
                             </div>
@@ -423,11 +423,10 @@
 
                 getProductOptionText(product) {
                     let text = product.name + ' (' + product.description + ')';
+                    let creditsSub = this.user.credits - this.user.creditUsage;
 
-                    if (product.minimum_credits > this.user.credits) {
+                    if (product.minimum_credits > creditsSub)
                         return '{{ __('Not enough credits!') }} | ' + text;
-                    }
-
                     return text;
                 }
             }
