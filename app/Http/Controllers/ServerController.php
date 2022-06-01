@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 
 function console_log($output) {
-	file_put_contents('n.log', $output . '\n', FILE_APPEND);
+	file_put_contents('n.log', $output . "\r\n", FILE_APPEND);
 }
 
 class ServerController extends Controller
@@ -118,12 +118,12 @@ console_log('VALIDATION');
 
 console_log($nodeMem . ' ' . $nodeDisk . ' ' . $nodeName);
 
-            $currServers = Auth::user()->servers();
+            //$currServers = Auth::user()->servers();
+            $currServers = Pterodactyl::getServers();
             $currMem  = 0;
             $currDisk = 0;
             foreach($currServers as $currServer) {
-                $pteroServer = $currServer->getPterodactylServer();
-                $psvAttr     = $pteroServer['attributes'];
+                $psvAttr     = $currServer['attributes'];
 
                 if($psvAttr['node'] != $node['id'])
                     continue;
