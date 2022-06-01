@@ -125,14 +125,14 @@
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="userDropdown">
                         <a class="dropdown-item">
-                            <i class="fas fa-coins fa-sm fa-fw mr-2 text-gray-400"></i>
+                            <i class="fas fa-dollar-sign fa-sm fa-fw mr-2 text-gray-400"></i>
                             {{ Auth::user()->formattedRealCredits() }}
                         </a>
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('store.index') }}">
                             <i class="fas fa-coins fa-sm fa-fw mr-2 text-gray-400"></i>
                             {{ __('Store') }}
                         </a>
-                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" data-toggle="modal" data-target="#redeemVoucherModal"
                             href="javascript:void(0)">
                             <i class="fas fa-money-check-alt fa-sm fa-fw mr-2 text-gray-400"></i>
