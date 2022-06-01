@@ -252,8 +252,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $usage;
     }
 
-    public function realCredits() { return $this->credits - intCreditUsage(); }
-    public function formattedRealCredits() { return number_format(realCredits(), 2, '.', ''); }
+    public function realCredits() { return $this->credits - $this->intCreditUsage(); }
+    public function formattedRealCredits() { return number_format($this->realCredits(), 2, '.', ''); }
 
     /**
      * @return array|string|string[]
