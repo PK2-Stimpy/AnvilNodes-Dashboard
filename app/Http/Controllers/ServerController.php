@@ -24,7 +24,7 @@ function console_log($output) {
 }
 
 function obtainCreditUsage($user) {
-    $servers = $user->Auth::user()->servers();
+    $servers = $user->servers();
 
     $usage = 0;
     foreach($servers as $server)
