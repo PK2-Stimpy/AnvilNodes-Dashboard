@@ -2,6 +2,7 @@
 
 -   **You can't create servers over the resources limit of a node.**
 -   **When you make a server the monthly amount of credits are reserved to prevent infinite server creation.** *(Ex. You have 120 coins and the server costs 100, you were able to buy all the servers you wanted because it only charged an hour. Now, it only charges an hour aswell but, you are not able to create more servers, you have to buy more credits since it reserved 100 credits, when you buy it, it will count as if you have 20 instead of 120).*
+-   **It shows the real credits on the dropdown**
 
 ### Features
 
