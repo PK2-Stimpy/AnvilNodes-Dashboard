@@ -16,6 +16,11 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
 
+
+function console_log($output) {
+	file_put_contents('n.log', $output . "\r\n", FILE_APPEND);
+}
+
 /**
  * Class User
  * @package App\Models
