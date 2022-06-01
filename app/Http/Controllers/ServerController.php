@@ -19,10 +19,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 
-function console_log($output) {
-	file_put_contents('n.log', $output . "\r\n", FILE_APPEND);
-}
-
 class ServerController extends Controller
 {
     /** Display a listing of the resource. */
