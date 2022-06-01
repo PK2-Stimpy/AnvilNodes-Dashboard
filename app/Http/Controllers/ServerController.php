@@ -105,7 +105,7 @@ class ServerController extends Controller
         if (FacadesRequest::has("product")) {
             $product = Product::findOrFail(FacadesRequest::input("product"));
             if (
-                Auth::user()->credits <
+                Auth::user()->credits - Auth::user()->creditUsage <
                 ($product->minimum_credits == -1
                     ? config('SETTINGS::USER:MINIMUM_REQUIRED_CREDITS_TO_MAKE_SERVER', 50)
                     : $product->minimum_credits)
