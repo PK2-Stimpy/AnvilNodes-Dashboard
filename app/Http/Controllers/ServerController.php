@@ -145,7 +145,7 @@ class ServerController extends Controller
 
             // Min. Credits
             if (
-                Auth::user()->credits - obtainCreditUsage() <
+                Auth::user()->credits - obtainCreditUsage(Auth::user()) <
                 ($product->minimum_credits == -1
                     ? config('SETTINGS::USER:MINIMUM_REQUIRED_CREDITS_TO_MAKE_SERVER', 50)
                     : $product->minimum_credits)
