@@ -23,6 +23,16 @@ function console_log($output) {
 	file_put_contents('n.log', $output . "\r\n", FILE_APPEND);
 }
 
+function obtainCreditUsage($user) {
+    $servers = $user->Auth::user()->servers();
+
+    $usage = 0;
+    foreach($servers as $server)
+        $usage += $server->product()->price;
+
+    return $usage;
+}
+
 class ServerController extends Controller
 {
     /** Display a listing of the resource. */
@@ -93,16 +103,6 @@ class ServerController extends Controller
             'eggs'         => $eggs,
             'user'         => Auth::user(),
         ]);
-    }
-
-    private function obtainCreditUsage($user) {
-        $servers = $user->Auth::user()->servers();
-        
-        $usage = 0;
-        foreach($servers as $server)
-            $usage += $server->product()->price;
-
-        return $usage;
     }
 
     /**
