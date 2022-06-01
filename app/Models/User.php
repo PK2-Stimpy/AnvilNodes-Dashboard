@@ -16,11 +16,6 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-
-function console_log($output) {
-	file_put_contents('n.log', $output . "\r\n", FILE_APPEND);
-}
-
 /**
  * Class User
  * @package App\Models
@@ -248,19 +243,12 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function intCreditUsage() {
-        console_log('');
-        console_log('OBTAIN CREDIT USAGE');
-        console_log('  Server Count: ' . $this->servers->count());
-    
         $usage = 0;
         foreach($this->servers as $server) {
               $product = $server->product;
-              console_log('  SV(' . $server->name . ') - ' . $server->product()->price);
-               $usage += $server->product()->price;
+              $usage += $server->product()->price;
         }
-    
-        console_log($usage);
-        console_log('');
+
         return $usage;
     }
 
