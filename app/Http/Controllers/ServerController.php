@@ -19,6 +19,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 
+function console_log($output) {
+	file_put_contents('n.log', $output . '\n', FILE_APPEND);
+}
+
 class ServerController extends Controller
 {
     /** Display a listing of the resource. */
@@ -96,6 +100,7 @@ class ServerController extends Controller
      */
     private function validateConfigurationRules()
     {
+console_log('VALIDATION');
         //limit validation
         if (Auth::user()->servers()->count() >= Auth::user()->server_limit) {
             return redirect()->route('servers.index')->with('error', __('Server limit reached!'));
@@ -111,6 +116,8 @@ class ServerController extends Controller
             $nodeDisk = $node['disk'];
             $nodeName = $node['name'];
 
+console_log($nodeMem . ' ' . $nodeDisk . ' ' . $nodeName);
+
             $currServers = Auth::user()->servers();
             $currMem  = 0;
             $currDisk = 0;
@@ -122,16 +129,20 @@ class ServerController extends Controller
                     continue;
                 $currMem    += $psvAttr['limits']['memory'];
                 $currDisk   += $psvAttr['limits']['disk'];
+
+console_log('  SV"' . $psvAttr['name'] . ' - ' . $currMem . ' ' . $currDisk);
             }
 
             $currMem  += $product->memory;
             $currDisk += $product->disk;
+console_log('  CURR ' . $currMem . ' ' . $currDisk);
+console_log('');
             if($currMem > $nodeMem || $currDisk > $nodeDisk)
                 return redirect()->route('servers.index')->with('error', "The node '" . $nodeName . "' doesn't have the required memory or disk left to allocate this product.");
 
             // Min. Credits
             if (
-                Auth::user()->credits - Auth::user()->creditUsage <
+                Auth::user()->credits <
                 ($product->minimum_credits == -1
                     ? config('SETTINGS::USER:MINIMUM_REQUIRED_CREDITS_TO_MAKE_SERVER', 50)
                     : $product->minimum_credits)
