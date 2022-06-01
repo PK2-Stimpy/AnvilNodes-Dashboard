@@ -95,6 +95,16 @@ class ServerController extends Controller
         ]);
     }
 
+    private function obtainCreditUsage($user) {
+        $servers = $user->Auth::user()->servers();
+        
+        $usage = 0;
+        foreach($servers as $server)
+            $usage += $server->product()->price;
+
+        return $usage;
+    }
+
     /**
      * @return null|RedirectResponse
      */
@@ -135,7 +145,7 @@ class ServerController extends Controller
 
             // Min. Credits
             if (
-                Auth::user()->credits <
+                Auth::user()->credits - obtainCreditUsage() <
                 ($product->minimum_credits == -1
                     ? config('SETTINGS::USER:MINIMUM_REQUIRED_CREDITS_TO_MAKE_SERVER', 50)
                     : $product->minimum_credits)
