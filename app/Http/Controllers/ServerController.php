@@ -100,7 +100,6 @@ class ServerController extends Controller
      */
     private function validateConfigurationRules()
     {
-console_log('VALIDATION');
         //limit validation
         if (Auth::user()->servers()->count() >= Auth::user()->server_limit) {
             return redirect()->route('servers.index')->with('error', __('Server limit reached!'));
@@ -116,8 +115,6 @@ console_log('VALIDATION');
             $nodeDisk = $node['disk'];
             $nodeName = $node['name'];
 
-console_log($nodeMem . ' ' . $nodeDisk . ' ' . $nodeName);
-
             //$currServers = Auth::user()->servers();
             $currServers = Pterodactyl::getServers();
             $currMem  = 0;
@@ -129,14 +126,10 @@ console_log($nodeMem . ' ' . $nodeDisk . ' ' . $nodeName);
                     continue;
                 $currMem    += $psvAttr['limits']['memory'];
                 $currDisk   += $psvAttr['limits']['disk'];
-
-console_log('  SV"' . $psvAttr['name'] . ' - ' . $currMem . ' ' . $currDisk);
             }
 
             $currMem  += $product->memory;
             $currDisk += $product->disk;
-console_log('  CURR ' . $currMem . ' ' . $currDisk);
-console_log('');
             if($currMem > $nodeMem || $currDisk > $nodeDisk)
                 return redirect()->route('servers.index')->with('error', "The node '" . $nodeName . "' doesn't have the required memory or disk left to allocate this product.");
 
