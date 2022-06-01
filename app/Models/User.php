@@ -246,7 +246,7 @@ class User extends Authenticatable implements MustVerifyEmail
         $usage = 0;
         foreach($this->servers as $server) {
               $product = $server->product;
-              $usage += $server->product()->price;
+              $usage += $server->product->price;
         }
 
         return $usage;
