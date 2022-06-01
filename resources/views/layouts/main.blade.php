@@ -124,6 +124,10 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="userDropdown">
+                        <a class="dropdown-item">
+                            <i class="fas fa-coins fa-sm fa-fw mr-2 text-gray-400"></i>
+                            {{ Auth::user()->formattedRealCredits() }}
+                        </a>
                         <a class="dropdown-item" href="{{ route('store.index') }}">
                             <i class="fas fa-coins fa-sm fa-fw mr-2 text-gray-400"></i>
                             {{ __('Store') }}
