@@ -24,12 +24,20 @@ function console_log($output) {
 }
 
 function obtainCreditUsage($user) {
+    console_log('');
+    console_log('OBTAIN CREDIT USAGE');
     $servers = $user->servers();
 
-    $usage = 0;
-    foreach($servers as $server)
-        $usage += $server->product()->price;
+    console_log('  Server Count: ' . $servers->count());
 
+    $usage = 0;
+    foreach($servers as $server) {
+        console_log('  SV(' . $server->name . ') - ' . $server->product()->price);
+        $usage += $server->product()->price;
+    }
+
+    console_log($usage);
+    console_log('');
     return $usage;
 }
 
