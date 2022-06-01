@@ -26,15 +26,18 @@ function console_log($output) {
 function obtainCreditUsage($user) {
     console_log('');
     console_log('OBTAIN CREDIT USAGE');
-    $servers = $user->servers();
+    $servers = $user->servers;
 
     console_log('  Server Count: ' . $servers->count());
 
     $usage = 0;
-    foreach($servers as $server) {
-        console_log('  SV(' . $server->name . ') - ' . $server->product()->price);
-        $usage += $server->product()->price;
-    }
+    $servers->chunk(10, function ($servers) {
+        foreach($servers as $server) {
+            $product = $server->product;
+            console_log('  SV(' . $server->name . ') - ' . $server->product()->price);
+            $usage += $server->product()->price;
+        }
+    });
 
     console_log($usage);
     console_log('');
