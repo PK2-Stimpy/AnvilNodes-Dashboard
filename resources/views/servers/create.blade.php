@@ -433,14 +433,5 @@
                 getRealCredits() { return {{ $user->realCredits() }}; }
             }
         }
-
-        /* OLD BUTTON
-                                    <button type="submit" x-model="selectedProduct" name="product"
-                                        :disabled="product.minimum_credits > user.credits"
-                                        :class="product.minimum_credits > user.credits ? 'disabled' : ''"
-                                        class="btn btn-primary btn-block mt-2" @click="setProduct(product.id)"
-                                        x-text=" product.minimum_credits > user.credits ? '{{ __('Not enough') }} {{ CREDITS_DISPLAY_NAME }}!' : '{{ __('Create server') }}'">
-                                    </button>
-        */
     </script>
 @endsection
